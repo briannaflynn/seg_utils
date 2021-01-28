@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from dh_segment.io import via
+from via import *
 
 import json
 import os
@@ -36,13 +36,13 @@ def load_annotation(annotation_file: str):
 
 
 
-via_data = via.load_annotation_data(annotation_file)
+via_data = load_annotation_data(annotation_file)
 
 # In the case of an exported project file, you can set ``only_img_annotations=True``
 # to get only the image annotations
-via_annotations = via.load_annotation_data(annotation_file, only_img_annotations=True)
+via_annotations = load_annotation_data(annotation_file, only_img_annotations=True)
 # Collect the annotated regions
-working_items = via.collect_working_items(via_annotations, collection, images_dir)
+working_items = collect_working_items(via_annotations, collection, images_dir)
 
 
 
