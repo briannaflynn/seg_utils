@@ -13,8 +13,8 @@ from typing import List, Tuple, Dict
 import cv2
 
 collection = 'Bones'
-annotation_file = '/Users/brie/Desktop/seg_utils/1.2.840.113619.2.110.210419.20190923100703.1.8.12.1.json'
-images_dir = '/Users/brie/Desktop/Hip and Knee Sample/hip_example_data/hip_jpg/'
+annotation_file = '/full/path/to/your/file.json'
+images_dir = '/full/path/to/your/image/directory'
 
 # parse annotation data and get the shape of the image
 
@@ -210,4 +210,4 @@ def mask(shape_att_list:list, file_name:str):
 	
 	return polyMask
 	
-#mask(shape_att_list, "iteration_test4")
+mask(shape_att_list, "MyMask")
