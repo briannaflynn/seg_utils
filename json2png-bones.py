@@ -13,8 +13,8 @@ from typing import List, Tuple, Dict
 import cv2
 
 collection = 'Bones'
-annotation_file = '/full/path/to/your/file.json'
-images_dir = '/full/path/to/your/image/directory'
+annotation_file = '/Users/brie/Desktop/seg_utils/1.2.840.113619.2.110.210419.20190923100703.1.8.12.1.json'
+images_dir = '/Users/brie/Desktop/Hip and Knee Sample/hip_example_data/hip_jpg/'
 
 # parse annotation data and get the shape of the image
 
@@ -151,7 +151,7 @@ shape_att_list = shape_dict['ShapeAttributes']
 
 #############################################################
 
-def mask(shape_att_list:list, file_name:str):
+def mask(shape_att_list:list, file_name:str, working_items:list):
 	num_shapes = len(shape_att_list)
 	range_shapes = [x for x in range(num_shapes)]
 	
@@ -209,5 +209,23 @@ def mask(shape_att_list:list, file_name:str):
 	cv2.imwrite(fname, polyMask)
 	
 	return polyMask
+
+def full_mask_pipeline(annotation_file, images_dir, collection, file_name):
 	
-mask(shape_att_list, "MyMask")
+	annotations = load_annotation_data(annotation_file)
+	working_items = get_working_items(annotations, images_dir, collection)
+	shape_dict = get_shape_attributes(annotations)
+	
+	shape_list = shape_dict['ShapeAttributes']
+	
+	return mask(shape_list, file_name, working_items)
+
+#############################################################
+
+# Full mask pipeline, from image and annotation file to mask.png file
+# Input: annotation file, image directory, collection string, and specified output file name
+# Output: mask file in png format 
+
+#############################################################
+
+full_mask_pipeline(annotation_file, images_dir, collection, "PipelineTest")
