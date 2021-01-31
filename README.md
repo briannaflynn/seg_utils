@@ -1,4 +1,4 @@
 # seg_utils
 Segmentation utilities for the Narasimhan Lab
 
-TODO: Create class for mask utilities
+TODO: create a jupyter notebook or python script example 
