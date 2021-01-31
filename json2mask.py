@@ -12,10 +12,9 @@ from itertools import filterfalse, chain
 from typing import List, Tuple, Dict
 import cv2
 
-annotation_file = '/Users/brie/Desktop/seg_utils/1.2.840.113619.2.110.210419.20190923100703.1.8.12.1.json'
-images_dir = '/Users/brie/Desktop/Hip and Knee Sample/hip_example_data/hip_jpg/'
-multi_file = '/Users/brie/Desktop/seg_utils/multi.json'
-output_filename = "MyMask"
+annotation_file = '/path/to/your.json'
+images_dir = '/path/to/your/images'
+output_filename = 'MyMask'
 
 class Mask:
 
