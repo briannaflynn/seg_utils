@@ -16,7 +16,7 @@ get_shape_attributes() = get the attributes of the shapes (x and y coordinates f
 drawMask() = draws a mask file from the polygon annotations, and then saves this mask as a png file
 
 ### Example
-```
+```Python
 annotation_file = 'my_JSON'
 image_directory = '/path/to/folder/with/images'
 output_filename = 'myOutput'
@@ -26,7 +26,6 @@ myMask = Mask(annotation_file, image_directory, output_filename)
 json2dictionary = myMask.annotDict()
 
 mask = myMask.drawMask()
-
 ```
 
 #### See a more detailed example of the json2mask module in the "demo.ipynb" example Jupyter Notebook.
