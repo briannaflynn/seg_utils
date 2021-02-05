@@ -23,7 +23,7 @@ class Mask:
 # __init__
 # Load in a JSON File of annotations
 # return a dictionary from which the mask file can be generated
-# You can also opt to input your own annotation dict (ideal for iterating)
+# You can also opt to input your own annotation dict (ideal for iterating on multiple annotations)
 
 #############################################################
 
@@ -128,7 +128,7 @@ class Mask:
 # Extract the shape attribute list from the key "ShapeAttributes"
 # Take this list and input to the mask generating function
 # Full mask pipeline, from image and annotation file to mask.png file
-# Input: annotation file, image directory, collection string, and specified output file name
+# Input: annotation file, image directory, and specified output file name
 # Output: mask file in png format 
 
 #############################################################
