@@ -12,9 +12,9 @@ from itertools import filterfalse, chain
 from typing import List, Tuple, Dict
 import cv2
 
-annotation_file = '/path/to/your.json'
-images_dir = '/path/to/your/images'
-output_filename = 'MyMask'
+#annotation_file = '/path/to/your.json'
+#images_dir = '/path/to/your/images'
+#output_filename = 'MyMask'
 
 class Mask:
 
@@ -203,5 +203,5 @@ class Mask:
 		return print("File " + self.file_name + ".png created successfully")
 			
 		
-json2png = Mask(annotation_file, images_dir, output_filename)
+#json2png = Mask(annotation_file, images_dir, output_filename)
 
