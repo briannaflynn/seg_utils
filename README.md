@@ -1,7 +1,10 @@
 # seg_utils
-Segmentation utilities for the Narasimhan Lab
 
 TODO: Improve Documentation
+* Add iteration examples in demo.ipynb
+* Add before and after pictures to README.md
+
+Segmentation utilities for the Narasimhan Lab
 
 Class = Mask
 
