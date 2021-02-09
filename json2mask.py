@@ -149,7 +149,6 @@ class Mask:
 		num_shapes = len(shape_att_list)
 		range_shapes = [x for x in range(num_shapes)]
 		
-		color_list = []
 		polygon_list = []
 		
 		for shape in range_shapes:
@@ -178,25 +177,20 @@ class Mask:
 		
 			a = np.array([contours], dtype = np.int32)
 		
-			c1 = random.randrange(0, 256)
-			c2 = random.randrange(0, 256)
-			c3 = random.randrange(0, 256)
-		
-			color_list.append((c1, c2, c3))
-		
 			polygon_list.append(a)
 			
 
 		zero_mask = np.zeros([self.shapes[0], self.shapes[1]], np.uint8)
 			
-		polyMask = cv2.fillPoly(zero_mask, polygon_list[0], 255)
+		polyMask = cv2.fillPoly(zero_mask, polygon_list[0], 1)
 			
 		fname = self.file_name + ".png"
 		
 		polyRange = [x for x in range(1, num_shapes)]
 		
 		for q in polyRange:
-			polyMask = cv2.fillPoly(polyMask, polygon_list[q], color_list[q])
+			x = q+1
+			polyMask = cv2.fillPoly(polyMask, polygon_list[q], x)
 			
 		cv2.imwrite(fname, polyMask)
 				
