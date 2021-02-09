@@ -3,6 +3,7 @@
 TODO: Improve Documentation
 * Add iteration examples in demo.ipynb
 * Add before and after pictures to README.md
+* Add folders according to jsonIterator.py
 
 Segmentation utilities for the Narasimhan Lab
 
