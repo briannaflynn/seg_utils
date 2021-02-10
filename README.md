@@ -4,6 +4,7 @@ TODO: Improve Documentation
 * Add iteration examples in demo.ipynb
 * Add before and after pictures to README.md
 * Add folders according to jsonIterator.py
+* Add function to automatically check dimensions of mask and dimensions of starting image
 
 Segmentation utilities for the Narasimhan Lab
 
