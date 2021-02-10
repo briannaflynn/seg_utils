@@ -180,7 +180,7 @@ class Mask:
 			polygon_list.append(a)
 			
 
-		zero_mask = np.zeros([self.shapes[0], self.shapes[1]], np.uint8)
+		zero_mask = np.zeros([self.shapes[1], self.shapes[0]], np.uint8)
 			
 		polyMask = cv2.fillPoly(zero_mask, polygon_list[0], 1)
 			
