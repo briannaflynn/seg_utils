@@ -5,6 +5,7 @@ TODO: Improve Documentation
 * Add before and after pictures to README.md
 * Add folders according to jsonIterator.py
 * Add function to automatically check dimensions of mask and dimensions of starting image
+* Address weird memory issue causing problems with creating masks of consistent dimensions
 
 Segmentation utilities for the Narasimhan Lab
 
