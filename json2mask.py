@@ -11,6 +11,7 @@ from PIL import Image
 from itertools import filterfalse, chain
 from typing import List, Tuple, Dict
 import cv2
+import time
 
 #annotation_file = '/path/to/your.json'
 #images_dir = '/path/to/your/images'
@@ -193,6 +194,8 @@ class Mask:
 			polyMask = cv2.fillPoly(polyMask, polygon_list[q], x)
 			
 		cv2.imwrite(fname, polyMask)
+		
+		time.sleep(3)
 				
 		return print("File " + self.file_name + ".png created successfully")
 			
