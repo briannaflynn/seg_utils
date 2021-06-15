@@ -1,7 +1,7 @@
 # seg_utils
 
 TODO: Improve Documentation
-* create a new demo.ipynb for the new jsonextract script
+* create a new demo.ipynb for the new jsonextract.py script
 * add to documentation information about required and optional args
 
 Segmentation utilities for the Narasimhan Lab
@@ -31,4 +31,3 @@ python jsonextract.py --json_path 'my_JSON' --input_dir '/path/to/folder/with/im
 # see all required and optional args
 python jsonextract.py --help
 ```
-#### See a more detailed example in the "demo.ipynb" example Jupyter Notebook.
