@@ -9,7 +9,7 @@ import argparse
 
 if __name__ == "__main__":
 	
-	parser = argparse.ArgumentParser(description="Convert JSON annotation to mask PNG image")
+	parser = argparse.ArgumentParser(description="Interpret predictions using pixel accuracy, mean IOU, and per polygon IOU")
 	parser.add_argument('--y_true', action='store', type=str, required = True, help ='Path to ground truth image')
 	parser.add_argument('--y_pred', action='store', type=str, required = True, help='Path to prediction image')
 
