@@ -12,6 +12,12 @@ coordinates_from_json()
 
 mask_from_dict()
 
+### Dependencies and Versions
+
+cv2: version 4.2.0
+PIL: version 7.1.2
+numpy: 1.18.5
+
 ### Example
 Python
 ```Python
