@@ -1,10 +1,6 @@
 # seg_utils
 
-TODO: Improve Documentation
-* create a new demo.ipynb for the new jsonextract.py script
-* add to documentation information about required and optional args
-
-Segmentation utilities for the Narasimhan Lab
+### Segmentation utilities for the Narasimhan Lab
 
 Available Functions:
 
