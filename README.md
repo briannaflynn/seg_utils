@@ -18,16 +18,7 @@ numpy: version 1.18.5
 
 ### Example 
 #### jsonextract
-Python
-```Python
-annotation_file = 'my_JSON'
-image_directory = '/path/to/folder/with/images'
-destination_directory = '/path/to/destination'
 
-coordinate_dictionary = (image_filename, annotation_file)
-mask_from_dict(coordinate_dictionary, image_directory, destination_directory)
-
-```
 Command line
 ```
 # run script
