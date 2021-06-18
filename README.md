@@ -43,6 +43,7 @@ python interp-metrics.py --y_true path/to/ground_truth --y_pred path/to/predicti
 {'Filename': 'prediction.png', 'Pixel Accuracy': 1.0, 'Mean IOU': 1.0, 'Individual Polygon IOUs': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]}
 
 # optional arg - polygon
+# Used for formatting per polygon IOU array into dict linking each polygon with its score
 
 python interp-metrics.py --y_true path/to/ground_truth --y_pred path/to/prediction --polygon spine
 # output 
