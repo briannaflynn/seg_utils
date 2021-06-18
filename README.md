@@ -16,7 +16,8 @@ PIL: version 7.1.2
 
 numpy: version 1.18.5
 
-### Example
+### Example 
+#### jsonextract
 Python
 ```Python
 annotation_file = 'my_JSON'
@@ -38,3 +39,18 @@ python jsonextract.py --json_path 'my_JSON' --input_dir '/path/to/folder/with/im
 # see all required and optional args
 python jsonextract.py --help
 ```
+#### interp-metrics.py
+
+Command line
+
+```
+# run script 
+python interp-metrics.py --y_true path/to/ground_truth --y_pred path/to/prediction 
+# output
+{'Filename': 'prediction.png', 'Pixel Accuracy': 1.0, 'Mean IOU': 1.0, 'Individual Polygon IOUs': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]}
+
+# optional arg - polygon
+
+python interp-metrics.py --y_true path/to/ground_truth --y_pred path/to/prediction --polygon spine
+# output 
+{'Filename': 'prediction.png', 'Pixel Accuracy': 1.0, 'Mean IOU': 1.0, 'Individual Polygon IOUs': {'T12': 1.0, 'L1': 1.0, 'L2': 1.0, 'L3': 1.0, 'L4': 1.0, 'L5': 1.0}}
