@@ -28,6 +28,9 @@ Command line
 # run script
 python jsonextract.py --json_path 'my_JSON' --input_dir '/path/to/folder/with/images' --dest_dir '/path/to/destination'
 
+# optional arg --color: Produce a colored output for sanity checking purposes
+python jsonextract.py --json_path 'my_JSON' --input_dir '/path/to/folder/with/images' --dest_dir '/path/to/destination' --color True
+
 # see all required and optional args
 python jsonextract.py --help
 ```
