@@ -14,7 +14,7 @@ cv2: version 4.2.0
 
 PIL: version 7.1.2
 
-numpy: 1.18.5
+numpy: version 1.18.5
 
 ### Example
 Python
