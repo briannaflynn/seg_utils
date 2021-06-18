@@ -16,6 +16,8 @@ PIL: version 7.1.2
 
 numpy: version 1.18.5
 
+scikit-image: version 0.18.1
+
 ### Example 
 #### jsonextract
 
