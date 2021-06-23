@@ -1,12 +1,25 @@
-# seg_utils
+# seg_utils: Segmentation utilities for the Narasimhan Lab
 
-### Segmentation utilities for the Narasimhan Lab
+### Main Functions:
 
-Available Functions:
-
+Prep a mask file from a JSON annotation: 
+```
 coordinates_from_json()
 
 mask_from_dict()
+```
+
+Evaluate the performance of a segmentation model or two annotators
+
+```
+pixel_accuracy()
+
+mean_accuracy()
+
+mean_IU()
+
+frequency_weighted_IU()
+```
 
 ### Dependencies and Versions
 
