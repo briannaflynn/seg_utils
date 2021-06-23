@@ -2,7 +2,7 @@
 
 ### Main Functions:
 
-Prep a mask file from a JSON annotation: 
+Prep a mask file from a JSON annotation (VGG format): 
 ```
 coordinates_from_json()
 
