@@ -32,7 +32,7 @@ python jsonextract.py --json_path 'my_JSON' --input_dir '/path/to/folder/with/im
 # see all required and optional args
 python jsonextract.py --help
 ```
-#### interp-metrics.py
+#### interp-metrics
 
 Command line
 
