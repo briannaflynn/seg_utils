@@ -10,30 +10,82 @@ import pandas as pd
 import argparse
 
 parser = argparse.ArgumentParser(description="Interpret predictions using pixel accuracy, mean IOU, and per polygon IOU")
-parser.add_argument('--y_true', action='store', type=str, required = True, help ='Path to ground truth image')
-parser.add_argument('--y_pred', action='store', type=str, required = True, help='Path to prediction image')
-parser.add_argument('--polygon', action='store', type=str, default=None, help= 'Provide polygon list for ious, current option is: spine') 
+# parser.add_argument('--y_true', action='store', type=str, required = True, help ='Path to ground truth image')
+# parser.add_argument('--y_pred', action='store', type=str, required = True, help='Path to prediction image')
+parser.add_argument('--polygon', action='store', type=str, default=None, help= 'Provide polygon list for ious, current option is: spine')
+parser.add_argument('--dir_y_true', action = 'store', type = str, required = True, help = 'Directory with ground truth images')
+parser.add_argument('--dir_y_pred', action = 'store', type = str, required = True, help = 'Directory with predictions') 
+parser.add_argument('--df_name', action = 'store', type = str, default = None, help = 'Create a dataframe with results')
 
 args = parser.parse_args()
-y_true_name = args.y_true
-y_pred_name = args.y_pred
+# y_true_name = args.y_true
+# y_pred_name = args.y_pred
 poly = args.polygon
+true_dir = args.dir_y_true
+pred_dir = args.dir_y_pred
+df_name = args.df_name
 
-y_true = imread(y_true_name)
-y_pred = imread(y_pred_name)
+# y_true = imread(y_true_name)
+# y_pred = imread(y_pred_name)
+# 
+# p_a = pixel_accuracy(y_pred, y_true)
+# m_i = mean_IU(y_pred, y_true)
+# 
+# mean_iou = m_i[0]
+# polygon_ious = m_i[1]
+# 
+# if poly == "spine":
+# 	polygons = ["T12", "L1", "L2", "L3", "L4", "L5"]
+# 	polydict = dict(zip(polygons, polygon_ious))
+# 	metrics = {"Filename": y_pred_name, "Pixel Accuracy": p_a, "Mean IOU": mean_iou, "Individual Polygon IOUs": polydict}
+# 	print(metrics)
+# 
+# elif poly == None:
+# 	metrics = {"Filename": y_pred_name, "Pixel Accuracy": p_a, "Mean IOU": mean_iou, "Individual Polygon IOUs": polygon_ious}
+# 	print(metrics)
+	
+metric_list = []
 
-p_a = pixel_accuracy(y_pred, y_true)
-m_i = mean_IU(y_pred, y_true)
+if true_dir and pred_dir != None:
+	truths = os.listdir(true_dir)
+	preds = os.listdir(pred_dir)
+	
+	a = None
+	j = None
+	
+	
+	for i in range(len(truths)):
+		if truths[i] == preds[i]:
+			a, j = truths[i], preds[i]
+			
+			tr = true_dir + '/' + a
+			pr = pred_dir + '/' + j
+			
+			y_true = imread(tr)
+			y_pred = imread(pr)
+			
+			p_a = pixel_accuracy(y_pred, y_true)
+			m_i = mean_IU(y_pred, y_true)
+			
+			mean_iou = m_i[0]
+			polygon_ious = m_i[1]
+			lmean = np.mean(polygon_ious[1:5])
+			if poly == "spine":
+				polygons = ["T12", "L1", "L2", "L3", "L4", "L5"]
+				polydict = dict(zip(polygons, polygon_ious))
+				metrics = {"Filename": pr, "Pixel Accuracy": p_a, "Mean IOU": mean_iou, "Individual Polygon IOUs": polydict, "L1-L4 Mean IOU": lmean}
+				metric_list.append(metrics)
+			
+			elif poly == None:
+				metrics = {"Filename": pr, "Pixel Accuracy": p_a, "Mean IOU": mean_iou, "Individual Polygon IOUs": polygon_ious, "L1-L4 Mean IOU": lmean}
+				metric_list.append(metrics)
 
-mean_iou = m_i[0]
-polygon_ious = m_i[1]
 
-if poly == "spine":
-	polygons = ["T12", "L1", "L2", "L3", "L4", "L5"]
-	polydict = dict(zip(polygons, polygon_ious))
-	metrics = {"Filename": y_pred_name, "Pixel Accuracy": p_a, "Mean IOU": mean_iou, "Individual Polygon IOUs": polydict}
-	print(metrics)
+a = [{**x, **x.pop('Individual Polygon IOUs')} for x in metric_list]
 
-elif poly == None:
-	metrics = {"Filename": y_pred_name, "Pixel Accuracy": p_a, "Mean IOU": mean_iou, "Individual Polygon IOUs": polygon_ious}
-	print(metrics)
+if df_name != None:
+	df = pd.DataFrame(a)
+	df.to_csv(df_name, index=False)
+	
+
+
