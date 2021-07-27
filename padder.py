@@ -3,13 +3,8 @@
 import pydicom as dicom
 import pandas as pd
 import os
-import glob
-import random
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import cv2
-import pickle
 from PIL import Image
 from skimage.io import imread
 import argparse
