@@ -1,4 +1,4 @@
-# seg_utils: Segmentation utilities for the Narasimhan Lab
+# seg_utils: Image segmentation utilities for the Narasimhan Lab
 
 ### Main Functions:
 
