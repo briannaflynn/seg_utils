@@ -128,5 +128,4 @@ Command line
 ```
 # run script
 python padder.py --di /Users/brie/Desktop/Padding/ --j /Users/brie/Desktop/ --r 0 1000 --c 0 1000 --padded_height 800 --padded_width 800
-
 ```
