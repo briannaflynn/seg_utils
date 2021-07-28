@@ -99,14 +99,11 @@ if __name__ == "__main__":
 	annots_out = args.annotation_output_directory
 	rows = tuple([int(f) for f in args.row_values])
 	cols = tuple([int(f) for f in args.column_values])
-	print(rows, cols)
+	
 	height = args.padded_height
 	width = args.padded_width
-	
-	print(height, width)
-	
+		
 	dicom_to_padded_image(dcm, rows, cols, height, width, jpg_out, img_type = ".jpg")
 	
 	if annots and annots_out != None:
 		annotation_to_padded_image(annots, rows, cols, height, width, annots_out)
-
