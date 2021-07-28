@@ -26,6 +26,8 @@ def dicom_to_padded_image(dicom_dir, row_val:tuple, col_val:tuple, height_pad, w
 	def ext_only(directory, extension='dcm'):
 		return([f for f in os.listdir(directory) if f.endswith('.' + extension)])
 	
+	z = 0
+	w = 0
 	for file in ext_only(dicom_dir):
 		img = os.path.join(dicom_dir, file)
 		outimg = os.path.join(out_dir, file)
@@ -41,9 +43,13 @@ def dicom_to_padded_image(dicom_dir, row_val:tuple, col_val:tuple, height_pad, w
 			outimg = outimg.replace('.dcm', padded_string)
 			cv2.imwrite(outimg, padded_image)
 			print(outimg, "written!")
+			z += 1
 		else:
 			print('size requirement not met')
-			
+			w += 1
+		
+		print("\nFile padding complete -")	
+		print(z, "files were written and", w, "files did not meet the size requirements set by user")
 		return None
 
 def annotation_to_padded_image(annotation_dir, row_val:tuple, col_val:tuple, height_pad, width_pad, out_dir):
