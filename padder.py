@@ -29,7 +29,7 @@ def dicom_to_padded_image(dicom_dir, row_val:tuple, col_val:tuple, height_pad, w
 	z = 0
 	w = 0
 	for file in ext_only(dicom_dir):
-		print(file)
+		
 		img = os.path.join(dicom_dir, file)
 		outimg = os.path.join(out_dir, file)
 		sample = dicom.dcmread(img)
