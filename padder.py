@@ -24,16 +24,17 @@ def add_pad(image, new_height, new_width):
 def dicom_to_padded_image(dicom_dir, row_val:tuple, col_val:tuple, height_pad, width_pad, out_dir, img_type = ".jpg"):
 	
 	def ext_only(directory, extension='dcm'):
-		return([f for f in os.listdir(directory) if f.endswith('.' + extension)])
+		return [f for f in os.listdir(directory) if f.endswith('.' + extension)]
 	
 	z = 0
 	w = 0
 	for file in ext_only(dicom_dir):
+		print(file)
 		img = os.path.join(dicom_dir, file)
 		outimg = os.path.join(out_dir, file)
 		sample = dicom.dcmread(img)
 		image = sample.pixel_array
-		
+				
 		rows = sample[0x00280010].value
 		cols = sample[0x00280010].value
 		
@@ -48,14 +49,14 @@ def dicom_to_padded_image(dicom_dir, row_val:tuple, col_val:tuple, height_pad, w
 			print('size requirement not met')
 			w += 1
 		
-		print("\nFile padding complete -")	
-		print(z, "files were written and", w, "files did not meet the size requirements set by user")
-		return None
+	print("\nFile padding complete -")	
+	print(z, "files were written and", w, "files did not meet the size requirements set by user")
+	return None
 
 def annotation_to_padded_image(annotation_dir, row_val:tuple, col_val:tuple, height_pad, width_pad, out_dir):
 	
 	def ext_only(directory, extension='png'):
-		return([f for f in os.listdir(directory) if f.endswith('.' + extension)])
+		return [f for f in os.listdir(directory) if f.endswith('.' + extension)]
 	
 	z = 0
 	w = 0
@@ -81,9 +82,9 @@ def annotation_to_padded_image(annotation_dir, row_val:tuple, col_val:tuple, hei
 			print('size requirement not met')
 			w += 1
 		
-		print("\nFile padding complete -")
-		print(z, "files were written and", w, "files did not meet the size requirement set by the user")
-		return None
+	print("\nFile padding complete -")
+	print(z, "files were written and", w, "files did not meet the size requirement set by the user")
+	return None
 
 if __name__ == "__main__":
 	
