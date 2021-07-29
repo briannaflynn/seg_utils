@@ -40,7 +40,7 @@ def dicom_to_padded_image(dicom_dir, row_val:tuple, col_val:tuple, height_pad, w
 		
 		if rows >= row_val[0] and rows <= row_val[1] and cols >= col_val[0] and cols <= col_val[1]:
 			padded_image = add_pad(image, height_pad, width_pad)
-			padded_string = "_padded" + img_type
+			padded_string = img_type
 			outimg = outimg.replace('.dcm', padded_string)
 			cv2.imwrite(outimg, padded_image)
 			print(outimg, "written!")
@@ -73,7 +73,7 @@ def annotation_to_padded_image(annotation_dir, row_val:tuple, col_val:tuple, hei
 		
 		if rows >= row_val[0] and rows <= row_val[1] and cols >= col_val[0] and cols <= col_val[1]:
 			padded_image = add_pad(im, height_pad, width_pad)
-			padded_string = "_padded.png"
+			padded_string = ".png"
 			outimg = outimg.replace('.dcm', padded_string)
 			cv2.imwrite(outimg, padded_image)
 			print(outimg, "written!")
