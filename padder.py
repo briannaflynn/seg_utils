@@ -148,6 +148,6 @@ if __name__ == "__main__":
 	if annots and annots_out != None:
 		annotation_to_padded_image(annots, rows, cols, height, width, annots_out)
 		
-	if jpg_in and jpg_out != None:
+	if input_jpg and jpg_out != None:
 		jpg_to_padded_image(input_jpg, rows, cols, height, width, jpg_out)
 		
