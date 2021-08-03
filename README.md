@@ -92,6 +92,8 @@ padder.py [-h] --dicom_directory DICOM_DIRECTORY
 
 Argmuments:
   -h, --help            show this help message and exit
+  
+  
   --dicom_directory DICOM_DIRECTORY
                         Path to DICOM image directory
                         
