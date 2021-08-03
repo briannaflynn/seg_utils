@@ -72,9 +72,7 @@ def annotation_to_padded_image(annotation_dir, row_val:tuple, col_val:tuple, hei
 		rows = shape[1]
 		
 		if rows >= row_val[0] and rows <= row_val[1] and cols >= col_val[0] and cols <= col_val[1]:
-			padded_image = add_pad(im, height_pad, width_pad)
-			padded_string = ".png"
-			outimg = outimg.replace('.dcm', padded_string)
+			padded_image = add_pad(im, height_pad, width_pad)			
 			cv2.imwrite(outimg, padded_image)
 			print(outimg, "written!")
 			z += 1
