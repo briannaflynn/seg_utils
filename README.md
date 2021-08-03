@@ -90,7 +90,9 @@ padder.py [-h] --dicom_directory DICOM_DIRECTORY
 
 
 
-Argmuments:
+**Optional Named Arguments:**
+
+
   -h, --help            show this help message and exit
   
   
@@ -108,8 +110,11 @@ Argmuments:
                         
   --annotation_output_directory ANNOTATION_OUTPUT_DIRECTORY
                         Path to padded annotation directory
-                        
-                        
+ 
+ 
+ **Required Named Arguments:**
+   
+  
   --row_values ROW_VALUES [ROW_VALUES ...]
                         Tuple containing range for row value
                         
