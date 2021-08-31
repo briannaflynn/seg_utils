@@ -18,8 +18,9 @@ fname = p + "/deploy.txt"
 
 with open(fname, "r") as fd:
     lines = fd.read().splitlines()
-    
-learn = load_learner(p, model)
+
+q = "/work2/05515/bflynn/frontera/Graded_KL_Images/graded_knee_OA_images"    
+learn = load_learner(q, model)
 
 def data_init(cols):
     
