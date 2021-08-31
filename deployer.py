@@ -14,6 +14,8 @@ p = sys.argv[1]
 name = sys.argv[2]
 model = sys.argv[3]
 
+fname = p + "/deploy.txt"
+
 with open(fname, "r") as fd:
     lines = fd.read().splitlines()
     
