@@ -88,7 +88,8 @@ padder.py [-h] --dicom_directory DICOM_DIRECTORY
                  --padded_height
                  PADDED_HEIGHT --padded_width PADDED_WIDTH
 
-
+# Note:
+Row and column tuples are specified to define a size range that you want to filter to prior to padding. For example, if you have images that are 200x300 and 1000x1000 in the same directory, and you only want to pad the 200x300 images, then you would specify --r 0 300 and --c 0 200 in your command.  
 
 **Optional Named Arguments:**
 
