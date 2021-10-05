@@ -103,6 +103,8 @@ padder.py [-h] --dicom_directory DICOM_DIRECTORY
   --annotation_directory ANNOTATION_DIRECTORY
                         Path to annotation image directory
                         
+  --input_jpg_directory INPUT_JPG DIRECTORY
+                        Path to the input directory for jpg images
                         
   --jpg_output_directory JPG_OUTPUT_DIRECTORY
                         Path to output directory for padded JPG images
