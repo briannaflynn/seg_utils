@@ -139,3 +139,8 @@ Command line
 # run script
 python padder.py --di /Users/brie/Desktop/Padding/ --j /Users/brie/Desktop/ --r 0 1000 --c 0 1000 --padded_height 800 --padded_width 800
 ```
+#### Deployer
+#### Deploy classification model on images, returns dataframe containing file, prediction and probability values. 
+
+# TODO: 
+Update deployer to handle both classification and segmentation OR make a separate module for segmentation. 
