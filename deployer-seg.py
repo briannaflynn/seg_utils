@@ -80,7 +80,18 @@ def runner(files, path, out_dir = "./"):
 class deploy:
 
 	def __init__(self, p, name, q, model):
-		self.path = p
+	
+		def path_prep(path:str):
+			p = None
+			if path[-1] == "/":
+				p = path
+			else:
+				p = path + "/"
+				
+			return p
+			
+		self.path = path_prep(p)
+		#self.path = p
 		self.out_name = name
 		self.model_path = q
 		self.model_name = model
@@ -100,6 +111,16 @@ class deploy:
 			
 		self.df = data_init(['file', 'prediction', 'probability'])
 		
+		def prepper(files:list, path:str):
+			
+			p = None
+			if path[-1] = "/":
+				p = path
+			else:
+				p = path + "/"
+			
+			return p
+		
 	def segLearner(path_to_pkl, wd = 1e-2):
 		
 		wd = wd
@@ -114,6 +135,11 @@ class deploy:
 		
 		return learn
 		
+	def classRunner(files, path, df):
+		
+		for f in files:
+			input = path + "/" + f
+			img = open_image(input)
 	
 		
 	
