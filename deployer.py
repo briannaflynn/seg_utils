@@ -10,16 +10,20 @@ import torch.nn as nn
 from PIL import Image
 import sys
 
+# path to directory with deploy.txt and images
 p = sys.argv[1]
+# name of the output csv file
 name = sys.argv[2]
+# model
 model = sys.argv[3]
+# path to model
+q = sys.argv[4]
 
 fname = p + "/deploy.txt"
 
 with open(fname, "r") as fd:
     lines = fd.read().splitlines()
 
-q = "/work2/05515/bflynn/frontera/Graded_KL_Images/graded_knee_OA_images"    
 learn = load_learner(q, model)
 
 def data_init(cols):
