@@ -143,4 +143,5 @@ python padder.py --di /Users/brie/Desktop/Padding/ --j /Users/brie/Desktop/ --r 
 #### Deploy classification model on images, returns dataframe (written to a csv file) containing file, prediction and probability values. 
 
 # TODO: 
-Update deployer to handle both classification and segmentation OR make a separate module for segmentation. 
+Update deployer to handle both classification and segmentation OR make a separate module for segmentation.
+Token test 
