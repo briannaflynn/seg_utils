@@ -19,79 +19,21 @@ model = sys.argv[3]
 # path to model
 q = sys.argv[4]
 
-fname = p + "/deploy.txt"
-
-with open(fname, "r") as fd:
-    lines = fd.read().splitlines()
-
-def acc(input, target):
-    target = target.squeeze(1)
-    
-    return (input.argmax(dim=1)==target).float().mean()
-
-metrics=acc
-
-def loadLearner(path_to_pkl):
-    
-    wd=1e-2 # weight decay
-    
-    learn = load_learner(path_to_pkl)
-    
-    return learn
-
-def pred2png(pred, in_file, out_dir = "./"):
-    
-    input = os.path.basename(in_file)
-    out_file = input[:-4] + "_prediction.png"
-    out_file = out_dir + out_file
-    
-    image = Image.open(in_file)
-    shape = image.size
-    
-    x = pred[1]
-
-    j = x.numpy()
-    j_int = j.astype(np.int)
-    
-    j = np.squeeze(j_int)
-    # j is the matrix containing the numbers, np.unique j is the number of polygons annotated in each image
-    # print(j, np.unique(j))
-    cv.imwrite(out_file, j)
-    
-    print(out_file) 
-
-def runner(files, path, out_dir = "./"):
+# What type of model are you deploying? OPTIONS: SEGMENTATION OR CLASSIFICATION
+type = None
+if sys.argv[5] == "segmentation":
+	type = True
 	
-	p = None
-	if path[-1] == "/":
-		p = path
-	else:
-		p = path + "/"
+elif sys.argv[5] == "classification":
+	type = False
 		
-	for f in files:
-		input = p + f
-		img = open_image(input)
-		pred = learn.predict(img)
-		
-		pred2png(pred, input, out_dir)
-		
-		
+print(type)	
 		
 class deploy:
 
 	def __init__(self, p, name, q, model):
-	
-		def path_prep(path:str):
-			p = None
-			if path[-1] == "/":
-				p = path
-			else:
-				p = path + "/"
-				
-			return p
-			
-		self.path = path_prep(p)
-		#self.path = p
+
+		self.path = p
 		self.out_name = name
 		self.model_path = q
 		self.model_name = model
@@ -110,16 +52,7 @@ class deploy:
 			return df
 			
 		self.df = data_init(['file', 'prediction', 'probability'])
-		
-		def prepper(files:list, path:str):
 			
-			p = None
-			if path[-1] = "/":
-				p = path
-			else:
-				p = path + "/"
-			
-			return p
 		
 	def segLearner(path_to_pkl, wd = 1e-2):
 		
@@ -135,13 +68,77 @@ class deploy:
 		
 		return learn
 		
-	def classRunner(files, path, df):
+	def runner(files, path, learner, out_dir = None, segment = True, df = None):
+	
+	
+		def pred2png(pred, input, out_dir = "./"):
+			input = os.path.basename(input)
+			out_file = input[:-4] + "_prediction.png"
+			out_file = out_dir + out_file
+			
+			x = pred[1]
+			j = x.numpy()
+			j_int = j.astype(np.int)
+			
+			j = np.squeeze(j_int)
+			print("...Attempting to write", out_file)
+			cv.imwrite(out_file, j)
+			print(out_file, "successfully written")
+			
+		p = None:
+		if path[-1] == "/":
+			p = path
+		else:
+			p = path + "/"
 		
+		
+		# Method 1: iterate through files first, then triage based on type
 		for f in files:
-			input = path + "/" + f
+			input = p + f
 			img = open_image(input)
-	
+			
+			if segment == True:
+				
+				pred = learner.predict(img)
+				pred2png(pred, input, out_dir)
+				
+			else:
+				pred = learner.predict(img)
+				pr = IntTensor.item(pred[1])
+				prob = pred[2].numpy()
+				
+				j = {'file':f, 'prediction':pr, 'probability':prob}
+				df = df.append(j, True)
 		
-	
+		# Method 2: Triage by type first, then iterate through files		
+		def iterfil(p,f):
 		
+			input = p+f
+			img = open_image(input)
+			return img
 		
+		if segment == True:
+		
+			for f in files:
+			
+				img = iterfil(p, f)
+				
+				pred = learner.predict(img)
+				pred2png(pred, input, out_dir)
+				
+		return "Segmentation complete"
+		
+		else:
+			
+			for f in files:
+				
+				img = iterfil(p, f)
+				
+				pred = learner.predict(img)
+				pr = IntTensor(item(pred[1]))
+				prob = pred[2].numpy()
+				
+				j = {'file':f, 'prediction':pr, 'probability':prob}
+				df = df.append(j, True)
+			
+			return df
