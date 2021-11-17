@@ -10,6 +10,13 @@ import torch.nn as nn
 from PIL import Image
 import sys
 
+def acc(input, target):
+    target = target.squeeze(1)
+    
+    return (input.argmax(dim=1)==target).float().mean()
+
+metrics=acc
+
 # INPUT: Necessary for both classification and segmentation
 
 # path to directory with deploy.txt and images
