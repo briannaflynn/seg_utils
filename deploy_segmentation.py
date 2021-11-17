@@ -63,7 +63,7 @@ def segrunner(files:list, path:str, pkl, out_dir:str):
 		
 	for f in files:
 		
-		filepath = p + f
+		filepath = path + f
 		img = open_image(filepath)
 		pred = pkl.predict(img)
 		pred2png(pred, filepath, out_dir)
