@@ -211,7 +211,7 @@ class deploy:
 d = deploy(p, name, q, model, type)
 lines = d.files
 print(lines)
-# learner = deploy.segLearner('/scratch1/05515/bflynn/knee/right_knee/padded_right_knee/', 'knee_segmentation.pkl')
-# 
-# deploy.runner(lines,  p, learner, "./", segment = type)
+learner = deploy.segLearner('/scratch1/05515/bflynn/knee/right_knee/padded_right_knee/', 'knee_segmentation.pkl')
+p = '/scratch1/05515/bflynn/knee/right_knee/padded_right_knee/'
+deploy.runner(lines,  p, learner, "./", segment = type)
 # 
