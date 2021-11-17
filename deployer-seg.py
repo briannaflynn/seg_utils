@@ -77,6 +77,13 @@ class deploy:
 	
 	def segLearner(path_to_pkl, model, wd = 1e-2):
 		
+		def acc(input, target):
+			target = target.squeeze(1)
+			
+			return (input.argmax(dim=1)==target).float().mean()
+			
+		metrics = acc
+		
 		wd = wd
 		
 		learn = load_learner(path_to_pkl, model)
@@ -192,7 +199,8 @@ class deploy:
 
 d = deploy(p, name, q, model, type)
 lines = d.files
-learner = deploy.segLearner(q, model)
-
-deploy.runner(lines,  p, learner, "./", segment = type)
-
+print(lines)
+learner = deploy.segLearner('/scratch1/05515/bflynn/knee/right_knee/padded_right_knee/', 'knee_segmentation.pkl')
+# 
+# deploy.runner(lines,  p, learner, "./", segment = type)
+# 
