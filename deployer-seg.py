@@ -10,6 +10,8 @@ import torch.nn as nn
 from PIL import Image
 import sys
 
+# INPUT: Necessary for both classification and segmentation
+
 # path to directory with deploy.txt and images
 p = sys.argv[1]
 # name of the output csv file
@@ -28,16 +30,21 @@ elif sys.argv[5] == "classification":
 	type = False
 		
 print(type)	
+
+################################################################################
+
+# Class Deploy
+# Funcs: Get predictions from trained segmentation and classification models
 		
 class deploy:
 
-	def __init__(self, p, name, q, model):
+	def __init__(self, p, name, q, model, type):
 
 		self.path = p
 		self.out_name = name
 		self.model_path = q
 		self.model_name = model
-		
+		self.type = type
 		fname = p + "/deploy.txt"
 		
 		with open(fname, "r") as fd:
@@ -53,14 +60,36 @@ class deploy:
 			
 		self.df = data_init(['file', 'prediction', 'probability'])
 			
+	def pred2png(pred, input, out_dir = "./"):
+		input = os.path.basename(input)
+		out_file = input[:-4] + "_prediction.png"
+		out_file = out_dir + out_file
 		
-	def segLearner(path_to_pkl, wd = 1e-2):
+		x = pred[1]
+		j = x.numpy()
+		j_int = j.astype(np.int)
+		
+		j = np.squeeze(j_int)
+		print("... Attempting to write", out_file)
+		cv.imwrite(out_file, j)
+		print(out_file, "successfully written")
+		
+	
+	def segLearner(path_to_pkl, model, wd = 1e-2):
 		
 		wd = wd
 		
-		learn = load_learner(path_to_pkl)
+		learn = load_learner(path_to_pkl, model)
 		
 		return learn
+		
+	def segDeploy(img, learner, input, out):
+	
+		pred = learner.predict(img)
+		j = pred2png(pred, input, out)
+		
+		return j
+		
 		
 	def classLearner(path_to_pkl, model):
 	
@@ -68,47 +97,60 @@ class deploy:
 		
 		return learn
 		
+	def classDeploy(img, learner, df):
+		
+		pred = learner.predict(img)
+		pr = IntTensor.item(pred[1])
+		prob = pred[2].numpy()
+		
+		j = {'file':f, 'prediction':pr, 'probability':prob}
+		df = df.append(j, True)
+		
+		return df
+		
 	def runner(files, path, learner, out_dir = None, segment = True, df = None):
 	
-	
-		def pred2png(pred, input, out_dir = "./"):
-			input = os.path.basename(input)
-			out_file = input[:-4] + "_prediction.png"
-			out_file = out_dir + out_file
+# 		def pred2png(pred, input, out_dir = "./"):
+# 			input = os.path.basename(input)
+# 			out_file = input[:-4] + "_prediction.png"
+# 			out_file = out_dir + out_file
+# 			
+# 			x = pred[1]
+# 			j = x.numpy()
+# 			j_int = j.astype(np.int)
+# 			
+# 			j = np.squeeze(j_int)
+# 			print("...Attempting to write", out_file)
+# 			cv.imwrite(out_file, j)
+# 			print(out_file, "successfully written")
 			
-			x = pred[1]
-			j = x.numpy()
-			j_int = j.astype(np.int)
-			
-			j = np.squeeze(j_int)
-			print("...Attempting to write", out_file)
-			cv.imwrite(out_file, j)
-			print(out_file, "successfully written")
-			
-		p = None:
+		p = None
 		if path[-1] == "/":
 			p = path
 		else:
 			p = path + "/"
 		
-		
 		# Method 1: iterate through files first, then triage based on type
-		for f in files:
-			input = p + f
-			img = open_image(input)
+# 		for f in files:
+# 			input = p + f
+# 			img = open_image(input)
+# 			
+# 			if segment == True:
+# 				
+# 				segDeploy(img, learner, input, out_dir)
+# 				# pred = learner.predict(img)
+# 				pred2png(pred, input, out_dir)
+# 				
+# 			else:
+# 			
+# 				classDeploy(img, learner, df)
 			
-			if segment == True:
-				
-				pred = learner.predict(img)
-				pred2png(pred, input, out_dir)
-				
-			else:
-				pred = learner.predict(img)
-				pr = IntTensor.item(pred[1])
-				prob = pred[2].numpy()
-				
-				j = {'file':f, 'prediction':pr, 'probability':prob}
-				df = df.append(j, True)
+				# pred = learner.predict(img)
+# 				pr = IntTensor.item(pred[1])
+# 				prob = pred[2].numpy()
+# 				
+# 				j = {'file':f, 'prediction':pr, 'probability':prob}
+# 				df = df.append(j, True)
 		
 		# Method 2: Triage by type first, then iterate through files		
 		def iterfil(p,f):
@@ -118,16 +160,16 @@ class deploy:
 			return img
 		
 		if segment == True:
+			print("... Deploying segmentation model")
 		
 			for f in files:
 			
 				img = iterfil(p, f)
+				segDeploy(img, learner, out_dir)
 				
-				pred = learner.predict(img)
-				pred2png(pred, input, out_dir)
+				# pred = learner.predict(img)
+# 				pred2png(pred, input, out_dir)
 				
-		return "Segmentation complete"
-		
 		else:
 			
 			for f in files:
@@ -142,3 +184,15 @@ class deploy:
 				df = df.append(j, True)
 			
 			return df
+
+
+################################################################################
+
+# TEST: Segmentation
+
+d = deploy(p, name, q, model, type)
+lines = d.files
+learner = deploy.segLearner(q, model)
+
+deploy.runner(lines,  p, learner, "./", segment = type)
+
