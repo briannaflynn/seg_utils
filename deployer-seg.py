@@ -128,7 +128,7 @@ class deploy:
 		
 	def runner(files, path, learner, out_dir = None, segment = True, df = None):
 	
-		def pred2png(pred, input, out_dir = "./"):
+		def pred2png(pred, in, out_dir = "./"):
 			input = os.path.basename(input)
 			out_file = input[:-4] + "_prediction.png"
 			out_file = out_dir + out_file
@@ -183,10 +183,11 @@ class deploy:
 			for f in files:
 			
 				img = iterfil(p, f)
+				in = p + f
 				#segDeploy(img, learner, out_dir)
 				
 				pred = learner.predict(img)
-				pred2png(pred, input, out_dir)
+				pred2png(pred, in, out_dir)
 				
 		else:
 			
