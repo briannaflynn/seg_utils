@@ -183,10 +183,10 @@ class deploy:
 			for f in files:
 			
 				img = iterfil(p, f)
-				segDeploy(img, learner, out_dir)
+				#segDeploy(img, learner, out_dir)
 				
-				# pred = learner.predict(img)
-# 				pred2png(pred, input, out_dir)
+				pred = learner.predict(img)
+				pred2png(pred, input, out_dir)
 				
 		else:
 			
