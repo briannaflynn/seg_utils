@@ -9,8 +9,15 @@ from torch import IntTensor
 import torch.nn as nn
 from PIL import Image
 import sys
-import datetime
+import time
 
+def timeit(func):
+    def wrapper(*args, **kwargs):
+        now = time.time()
+        retval = func(*args, **kwargs)
+        print('{} took {:.5f}s'.format(func.__name__, time.time() - now))
+        return retval
+    return wrapper
 # GLOBAL: METRICS USED WHILE TRAINING
 # These must be global or else this breaks, just for segmentation
 def acc(input, target):
@@ -44,7 +51,7 @@ learner = sys.argv[3]
 # get the learner object
 pickl = loadLearner(path, learner)
 
-
+@timeit
 def segrunner(files:list, path:str, pkl, out_dir:str):
 
 	def pred2png(pred, input, out_dir):
