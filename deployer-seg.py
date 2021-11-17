@@ -10,6 +10,9 @@ import torch.nn as nn
 from PIL import Image
 import sys
 
+
+# GLOBAL: METRICS USED WHILE TRAINING
+# These must be global or else this breaks, just for segmentation
 def acc(input, target):
     target = target.squeeze(1)
     
@@ -82,17 +85,9 @@ class deploy:
 		print(out_file, "successfully written")
 		
 	
-	def segLearner(path_to_pkl, model, wd = 1e-2):
+	def segLearner(path_to_pkl, model):
 		
-		def acc(input, target):
-			target = target.squeeze(1)
-			
-			return (input.argmax(dim=1)==target).float().mean()
-			
-		metrics = acc
-		
-		wd = wd
-		
+		wd = 1e-2
 		learn = load_learner(path_to_pkl, model)
 		
 		return learn
