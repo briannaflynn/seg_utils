@@ -27,13 +27,15 @@ def loadLearner(path_to_pkl, pkl):
 	learn = load_learner(path_to_pkl, pkl)
 	
 	return learn
-	
-with open(fname, "r") as fd:
-	lines = fd.read().splitlines()
 
 # path to images, deploy.txt and .pkl file
+
 path = sys.argv[1]
 fname = path + "deploy.txt"
+
+with open(fname, "r") as fd:
+	lines = fd.read().splitlines()
+	
 # path to the destination directory
 out = sys.argv[2]
 # name of the learner.pkl file
@@ -68,7 +70,3 @@ def segrunner(files:list, path:str, pkl, out_dir:str):
 		
 		
 segrunner(lines, path, pickl, out)
-		
-		
-
-				
