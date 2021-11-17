@@ -128,19 +128,19 @@ class deploy:
 		
 	def runner(files, path, learner, out_dir = None, segment = True, df = None):
 	
-# 		def pred2png(pred, input, out_dir = "./"):
-# 			input = os.path.basename(input)
-# 			out_file = input[:-4] + "_prediction.png"
-# 			out_file = out_dir + out_file
-# 			
-# 			x = pred[1]
-# 			j = x.numpy()
-# 			j_int = j.astype(np.int)
-# 			
-# 			j = np.squeeze(j_int)
-# 			print("...Attempting to write", out_file)
-# 			cv.imwrite(out_file, j)
-# 			print(out_file, "successfully written")
+		def pred2png(pred, input, out_dir = "./"):
+			input = os.path.basename(input)
+			out_file = input[:-4] + "_prediction.png"
+			out_file = out_dir + out_file
+			
+			x = pred[1]
+			j = x.numpy()
+			j_int = j.astype(np.int)
+			
+			j = np.squeeze(j_int)
+			print("...Attempting to write", out_file)
+			cv.imwrite(out_file, j)
+			print(out_file, "successfully written")
 			
 		p = None
 		if path[-1] == "/":
