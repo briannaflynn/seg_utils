@@ -9,6 +9,7 @@ from torch import IntTensor
 import torch.nn as nn
 from PIL import Image
 import sys
+import datetime
 
 
 # GLOBAL: METRICS USED WHILE TRAINING
@@ -22,15 +23,14 @@ metrics=acc
 
 # INPUT: Necessary for both classification and segmentation
 
-# path to directory with deploy.txt and images
+# path to directory with deploy.txt, images and pkl file
 p = sys.argv[1]
-# name of the output csv file
-name = sys.argv[2]
-# model
-model = sys.argv[3]
+# name of pkl file
+pkl = sys.argv[2]
 # path to model
-q = sys.argv[4]
-
+q = sys.argv[3]
+# model
+model = sys.argv[4]
 # What type of model are you deploying? OPTIONS: SEGMENTATION OR CLASSIFICATION
 type = None
 if sys.argv[5] == "segmentation":
@@ -41,6 +41,15 @@ elif sys.argv[5] == "classification":
 		
 print(type)	
 
+#get current date and time
+x = datetime.datetime.now()
+#convert date and time to string
+dateTimeStr = str(x)
+#print the date and time string
+print(dateTimeStr)
+
+name = "classification_" + dateTimeStr + ".csv"
+print(name)
 ################################################################################
 
 # Class Deploy
@@ -202,7 +211,7 @@ class deploy:
 d = deploy(p, name, q, model, type)
 lines = d.files
 print(lines)
-learner = deploy.segLearner('/scratch1/05515/bflynn/knee/right_knee/padded_right_knee/', 'knee_segmentation.pkl')
+# learner = deploy.segLearner('/scratch1/05515/bflynn/knee/right_knee/padded_right_knee/', 'knee_segmentation.pkl')
 # 
 # deploy.runner(lines,  p, learner, "./", segment = type)
 # 
